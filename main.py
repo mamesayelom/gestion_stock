@@ -15,5 +15,8 @@ from Models.mouvement import appelle_mouvement
 #print(modifiercategorie1())
 #print(AjouterProduit())
 #print(afficher_produit())
-appelle_mouvement()
+#appelle_mouvement()
 
+#def main():
+    #print("---------------Menu-------------")
+    #print('1- ')
