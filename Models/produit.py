@@ -65,6 +65,31 @@ def afficher_produit():
         curseur.close()
         conn.close()
 
+def afficher_produits_stock_faible():
+    conn=ma_connexion()
+    curseur=conn.cursor()
+    liste=[]
+    try:
+        sql='select p.id,p.designation,p.prix,p.quantite,c.nom_categorie,p.etat from produits p join categories c on p.id_categorie=c.id where p.quantite < 5'
+        curseur.execute(sql)
+        produits=curseur.fetchall()
+        for produit in produits :
+            print(
+                    f"ID: {produit[0]} | "
+                    f"Designation: {produit[1]} | "
+                    f"Prix: {produit[2]} | "
+                    f"quantite: {produit[3]} | "
+                    f"Categorie: {produit[4]} | "
+                    f"etat: {produit[5]}"
+                )
+            liste.append(produit[0])
+        return liste
+    except Exception as e:
+        print("erreur lors de l'affichage ",e)
+    finally:
+        curseur.close()
+        conn.close()
+
 
 def get_quantite(id_produit):
     conn=ma_connexion()

@@ -24,7 +24,6 @@ def appelle_mouvement():
             if choix in liste:
                 id_produit=choix
                 stock=get_quantite(id_produit)
-                print(stock)
                 while True:
                     quantite=input('saisir une quantite')
                     if quantite.isnumeric():
@@ -46,6 +45,7 @@ def appelle_mouvement():
                     if type=='SORTIE':
                         if stock < quantite:
                             print("le stock du produit n'est pas suffisant")
+                            return
                         else:
                             Faire_mouvement(id_produit,quantite,type)
                             q=stock-quantite
@@ -67,3 +67,23 @@ def appelle_mouvement():
             
         else:
             print('vous devez saisir un nombre')
+
+def Afficher_mouvement():
+    conn=ma_connexion()
+    curseur=conn.cursor()
+    try:
+        sql='select m.id,p.designation,m.quantite,m.type from mouvement m join produits p on p.id=m.id_produit'
+        curseur.execute(sql)
+        mouvements=curseur.fetchall()
+        for mouvement in mouvements :
+            print(
+                    f"ID: {mouvement[0]} | "
+                    f"Produit: {mouvement[1]} | "
+                    f"Quantite: {mouvement[2]} | "
+                    f"Type: {mouvement[3]} | "
+                )
+    except Exception as e:
+        print( "Erreur lors de l'affichage des mouvements: ",e)
+    finally:
+        curseur.close()
+        conn.close()
