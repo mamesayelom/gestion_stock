@@ -3,7 +3,7 @@ def ma_connexion():
     conn=mysql.connector.connect(
         host='localhost',
         user='root',
-        password='MotDePasseFort',
+        password='root',
         database='boutique'
     )
     return conn
