@@ -3,6 +3,7 @@ from Models.produit import AjouterProduit,afficher_produit,afficher_produits_sto
 from Models.mouvement import appelle_mouvement,Afficher_mouvement
 
 from Models.authentification import login
+from Models.authentification import inscription
 
 
 def menu_admin(user):
@@ -16,7 +17,9 @@ def menu_admin(user):
         print('5- Afficher les produits dont le stock est inférieur à 5 unités')
         print('6- Faire un mouvement')
         print('7- Afficher les mouvements')
-        choix= input('Faites votre choix')
+        print('0. Déconnexion')
+
+        choix= input('Faites votre choix : ')
         if choix.isnumeric():
             choix=int(choix)
             match choix:
@@ -34,6 +37,9 @@ def menu_admin(user):
                     appelle_mouvement()
                 case 7:
                     Afficher_mouvement()
+                case 0:
+                    print("Vou êtes déconnecté. 👋")
+                    break
                 case _:
                     print('choix invalide')
 
@@ -51,8 +57,9 @@ def menu_user(user):
         print('3- Afficher les produits dont le stock est inférieur à 5 unités')
         print('4- Faire un mouvement')
         print('5- Afficher les mouvements')
+        print('0- Déconnexion')
 
-        choix= input('Faites votre choix')
+        choix= input('Faites votre choix : ')
 
         if choix.isnumeric():
             choix=int(choix)
@@ -69,6 +76,9 @@ def menu_user(user):
                 case 5:
             
                     Afficher_mouvement()
+                case 0:
+                    print("Vou êtes déconnecté. 👋")
+                    break
                 case _:
                     print('choix invalide')
 
@@ -76,15 +86,40 @@ def menu_user(user):
             print('choix doit etre un nombre')
 
 def main():
+    while True:
+        print("\n" + "-" * 40)
+        print("      GESTION DE STOCK")
+        print("-" * 40)
+        print("1. Se connecter")
+        print("2. S'inscrire")
+        print("0. Quitter")
+        print("-" * 40)
 
-    user = None
+        choix = input("Faites votre choix : ")
 
-    while user is None:
-        user = login()
+        if not choix.isdigit():
+            print("Choix invalide")
+            continue
 
-    if user['role'] == 'admin':
-        menu_admin(user)
-    else:
-        menu_user(user)
+        choix = int(choix)
+
+        match choix:
+            case 1:
+                user = login()
+                if user:
+                    if user['role'] == 'admin':
+                        menu_admin(user)
+                    else:
+                        menu_user(user)
+
+            case 2:
+                inscription()
+
+            case 0:
+                print("Au revoir 👋")
+                break
+
+            case _:
+                print("Choix invalide")
 main()
     

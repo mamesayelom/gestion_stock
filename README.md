@@ -15,6 +15,8 @@ Ce projet a été réalisé dans le cadre d’un apprentissage du développement
 - Historique des mouvements de stock
 - Afficher les produits avec leur catégorie
 - Alerte pour les produits dont le stock est inférieur à 5 unités
+- Authentification gestion des rôles
+- Déconnexion
 
 ---
 
@@ -43,6 +45,7 @@ git clone https://github.com/mamesayelom/gestion_stock.git
 
 ## Installer les dépendances
 - pip install mysql-connector-python
+- pip install bcrypt
 
 ## Configurer la base de données
 
