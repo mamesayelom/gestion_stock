@@ -49,17 +49,17 @@ def appelle_mouvement():
                         else:
                             Faire_mouvement(id_produit,quantite,type)
                             q=stock-quantite
-                            modifier_quantite_produit(q)
+                            modifier_quantite_produit(q,id_produit)
                     if type=='ENTREE':
                         Faire_mouvement(id_produit,quantite,type)
                         q=stock+quantite
-                        modifier_quantite_produit(q)
+                        modifier_quantite_produit(q,id_produit)
                     if q < 5:
                         modifier_etat_produit('En rupture')
-                        break
+                        return
                     else:
                         modifier_etat_produit('Disponible')
-                        break
+                        return
 
                     
             else:

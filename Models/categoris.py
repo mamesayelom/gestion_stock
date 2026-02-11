@@ -7,9 +7,9 @@ def ajouter_categorie(nom):
         sql='insert into categories(nom_categorie)values(%s)'
         curseur.execute(sql,(nom,))
         conn.commit()
-        return 'categorie ajouter avec succees'
+        print('categorie ajouter avec succees')
     except Exception as e:
-        return 'vous avez une erreur ',e
+        print('vous avez une erreur ',e)
     finally:
         curseur.close()
         conn.close()
@@ -19,7 +19,10 @@ def creer_categorie():
         while True:
             nom=input('entrer le nom de la categorie ').strip()
             if not nom.isnumeric():
-                break
+                if len(nom) >= 3:
+                    break
+                else:
+                    print('saisi invalide')
             else:
                 print('le nom ne doit pas etre un nombre')
         return ajouter_categorie(nom)
@@ -34,14 +37,14 @@ def afficher_categorie():
         curseur.execute(sql)
         categories=curseur.fetchall()
         if len(categories)==0:
-            return 'pas de categories'
+            print('pas de categories')
         liste=[]
         for categorie in categories:
             print(categorie[0],':',categorie[1])
             liste.append(categorie[0])
         return liste
     except Exception as e:
-        return "erreur lors de l'affichage",e
+        print("erreur lors de l'affichage",e)
     finally:
         curseur.close()
         conn.close()
@@ -53,7 +56,7 @@ def modifier_categorie(nom,id):
         sql="update categories set nom_categorie=%s where id=%s"
         cursseur.execute(sql,(nom,id))
         conn.commit()
-        return 'la categorie a ete modifier',
+        print('la categorie a ete modifier avec succes')
     except Exception as e:
         print('erreur lors de la modification',e)
     finally:

@@ -9,9 +9,10 @@ def login():
 
     cursor.execute(
         "SELECT * FROM utilisateurs WHERE email = %s",
-        (email,)
+        (email,) # VERIFIER ICI
     )
     user = cursor.fetchone()
+    print(user)
     
     if user and user['email'] == email and user['password'] == password:
         print(f"\nBienvenue {user['prenom']} {user['nom']} 👋")

@@ -19,8 +19,12 @@ def AjouterProduit():
         designation=input('ajouter un designaton ').strip()
         if designation.isnumeric():
             print('ne doit pas etre un nombre')
+            continue
         else:
-            break
+            if len(designation) < 3:
+                print('saisi invalide')
+            else:
+                break
     while True:
         prix=input('ajouter le prix du produit ').strip()
         if prix.isnumeric():
@@ -106,12 +110,12 @@ def get_quantite(id_produit):
         curseur.close()
         conn.close()
 
-def modifier_quantite_produit(quantite):
+def modifier_quantite_produit(quantite,id_produit):
     conn=ma_connexion()
     curseur=conn.cursor()
     try:
-        sql='update produits set quantite=%s'
-        curseur.execute(sql,(quantite,))
+        sql='update produits set quantite=%s where id=%s'
+        curseur.execute(sql,(quantite,id_produit))
         conn.commit()
         print('success')
     except Exception as e:
